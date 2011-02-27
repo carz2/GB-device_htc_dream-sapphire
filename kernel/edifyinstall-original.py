@@ -95,12 +95,30 @@ echo "sysboard=$board" >> /tmp/nfo.prop
 def make_boot_install(script,boot_img,input_zip,output_zip):
     android_root=os.getenv("ANDROID_BUILD_TOP")
     temp_root=tempfile.mkdtemp(suffix="autokernel")
+    
+    #the "base" file is the 2708 boot.img
+    common.ZipWriteStr(output_zip,"kernel/2708-boot.img",boot_img.data)
+    
+    #GENERATE EBI0 boot.img
+    unzip_boot_files(input_zip,os.path.join(temp_root,"ebi0_BOOT"))
+    shutil.copy( os.path.join(android_root,
+                   "device","htc","dream-sapphire","kernel","ebi0-zImage"),
+                 os.path.join(temp_root,"ebi0_BOOT","kernel"))
+    
+    fp=open(os.path.join(temp_root,"ebi0_BOOT","base"),'w')
+    fp.write("0x10000000")
+    fp.close()
 
+    ebi0_boot_img = common.File("ebi0_boot.img",
+                       common.BuildBootableImage(
+                         os.path.join(temp_root,"ebi0_BOOT")))
+    
+    common.ZipWriteStr(output_zip,"kernel/ebi0-boot.img",ebi0_boot_img.data)
 
     #GENERATE EBI1 boot.img
     unzip_boot_files(input_zip,os.path.join(temp_root,"ebi1_BOOT"))
     shutil.copy( os.path.join(android_root,
-                   "device","htc","dream-sapphire","kernel","6355-zImage"),
+                   "device","htc","dream-sapphire","kernel","ebi1-zImage"),
                  os.path.join(temp_root,"ebi1_BOOT","kernel"))
     
     fp=open(os.path.join(temp_root,"ebi1_BOOT","base"),'w')
@@ -111,15 +129,20 @@ def make_boot_install(script,boot_img,input_zip,output_zip):
                        common.BuildBootableImage(
                          os.path.join(temp_root,"ebi1_BOOT")))
     
-    common.ZipWriteStr(output_zip,"kernel/6355-boot.img",ebi1_boot_img.data)
+    common.ZipWriteStr(output_zip,"kernel/ebi1-boot.img",ebi1_boot_img.data)
     
     #copy in modules.sqf
     fp=open(os.path.join(android_root,
-              "device","htc","dream-sapphire","kernel","6355-modules.sqf"),
+              "device","htc","dream-sapphire","kernel","ebi0-modules.sqf"),
               "rb")
-    common.ZipWriteStr(output_zip,"kernel/6355-modules.sqf",fp.read())
+    common.ZipWriteStr(output_zip,"kernel/ebi0-modules.sqf",fp.read())
     fp.close()
 
+    fp=open(os.path.join(android_root,
+              "device","htc","dream-sapphire","kernel","ebi1-modules.sqf"),
+              "rb")
+    common.ZipWriteStr(output_zip,"kernel/ebi1-modules.sqf",fp.read())
+    fp.close()
 
     #add in checksys.sh
     generate_checksys(output_zip)
@@ -135,12 +158,12 @@ set_perm(0,0,755,"/tmp/checksys.sh");
 run_program("/tmp/checksys.sh");
 
 #determine if we need to patch a boot image
-if file_getprop("/tmp/nfo.prop","radioseries") == "6.35"
+if file_getprop("/tmp/nfo.prop","radioseries") == "3.22"
 then 
     #EBI1 kernel needed
     ui_print("Extracting EBI1 patch");
-    package_extract_file("kernel/6355-boot.img","/tmp/boot.img");
-    package_extract_file("kernel/6355-modules.sqf",
+    package_extract_file("kernel/ebi1-boot.img","/tmp/boot.img");
+    package_extract_file("kernel/ebi1-modules.sqf",
                          "/system/lib/modules/modules.sqf");
 else
     #EBI0/2708 kernel needed
@@ -219,3 +242,4 @@ set_perm(0, 0, 0644, "/system/etc/AudioPara4.csv");
 """)
     #clean up temporary files
     shutil.rmtree(temp_root,ignore_errors=True)
+

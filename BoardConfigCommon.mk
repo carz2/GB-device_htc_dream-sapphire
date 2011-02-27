@@ -25,6 +25,7 @@ USE_CAMERA_STUB := true
 -include vendor/htc/sapphire/BoardConfigVendor.mk
 
 TARGET_BOARD_PLATFORM := msm7k
+BOARD_HAS_LIMITED_EGL := true
 TARGET_CPU_ABI := armeabi
 
 TARGET_NO_BOOTLOADER := true
@@ -52,8 +53,7 @@ BOARD_HAVE_BLUETOOTH := true
 
 BOARD_VENDOR_USE_AKMD := akm8976
 
-BOARD_VENDOR_QCOM_AMSS_VERSION := 6220
-
+BOARD_VENDOR_QCOM_AMSS_VERSION := 6355
 # The size of a block that can be marked bad.
 BOARD_FLASH_BLOCK_SIZE := 131072
 

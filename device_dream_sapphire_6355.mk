@@ -29,24 +29,11 @@ PRODUCT_COPY_FILES := \
 
 #copy default modules.
 PRODUCT_COPY_FILES += \
-    vendor/carz/kernel/6355-modules.sqf:system/lib/modules/modules.sqf
-
-#Copy in many more apns
-PRODUCT_COPY_FILES += \
-    vendor/carz/etc/apns-conf.xml:system/lib/etc/apns-conf.xml
-
-#set ro.modversion
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=Carz-DietGingerbread-v0.070-debug
+    device/htc/dream-sapphire/kernel/6355-modules.sqf:system/lib/modules/modules.sqf
 
 #Copy init.d scripts
 PRODUCT_COPY_FILES += \
-    vendor/carz/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
-    vendor/carz/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
-    vendor/carz/etc/init.d/04modules:system/etc/init.d/04modules \
-    vendor/carz/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
-    vendor/carz/etc/init.d/06mountdl:system/etc/init.d/06mountdl \
-    vendor/carz/etc/init.d/20userinit:system/etc/init.d/20userinit 
+    device/htc/dream-sapphire/prebuilt/etc/init.d/04modules:system/etc/init.d/04modules
 
 #Copy audio profiles
 PRODUCT_COPY_FILES += \
@@ -57,25 +44,6 @@ PRODUCT_COPY_FILES += \
 #Copy prebuilt files
 PRODUCT_COPY_FILES += \
     device/htc/dream-sapphire/prebuilt/bin/fix_permissions:system/bin/fix_permissions
-
-#copy in apps2sd files
-PRODUCT_COPY_FILES += \
-    vendor/carz/bin/e2fsck:system/bin/e2fsck \
-    vendor/carz/bin/e2label:system/bin/e2label \
-    vendor/carz/bin/compcache:system/bin/compcache \
-    vendor/carz/bin/handle_compcache:system/bin/handle_compcache \
-    vendor/carz/lib/libext2_blkid.so:system/lib/libext2_blkid.so \
-    vendor/carz/lib/libext2_com_err.so:system/lib/libext2_com_err.so \
-    vendor/carz/lib/libext2_e2p.so:system/lib/libexts_e2p.so \
-    vendor/carz/lib/libext2fs.so:system/lib/libext2fs.so \
-    vendor/carz/lib/libext2_profile.so:system/lib/libext2_profile.so \
-    vendor/carz/lib/libext2_uuid.so:system/lib/libext2_uuid.so
-
-#copy in cam fix files
-PRODUCT_COPY_FILES += \
-    vendor/carz/lib/libcamera.so:system/lib/libcamera.so \
-    vendor/carz/lib/libcamera_client.so:system/lib/libcamera_client.so \
-    vendor/carz/lib/libcameraservice.so:system/lib/libcameraservice.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.media.dec.jpeg.memcap=10000000
