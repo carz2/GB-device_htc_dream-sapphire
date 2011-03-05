@@ -66,10 +66,14 @@ PRODUCT_COPY_FILES += \
     vendor/carz/bin/handle_compcache:system/bin/handle_compcache \
     vendor/carz/lib/libext2_blkid.so:system/lib/libext2_blkid.so \
     vendor/carz/lib/libext2_com_err.so:system/lib/libext2_com_err.so \
-    vendor/carz/lib/libext2_e2p.so:system/lib/libexts_e2p.so \
+    vendor/carz/lib/libext2_e2p.so:system/lib/libext2_e2p.so \
     vendor/carz/lib/libext2fs.so:system/lib/libext2fs.so \
     vendor/carz/lib/libext2_profile.so:system/lib/libext2_profile.so \
     vendor/carz/lib/libext2_uuid.so:system/lib/libext2_uuid.so
+
+#my buld prop
+PRODUCT_COPY_FILES += \
+    vendor/carz/build.prop:system/build.prop
 
 #copy in cam fix files
 PRODUCT_COPY_FILES += \
