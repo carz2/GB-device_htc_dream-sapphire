@@ -15,7 +15,7 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/ebi1-zImage
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/6355-zImage
 BUILD_TARGET_EXTRA_OTABOOT_INSTALL_SCRIPT := \
     $(LOCAL_PATH)/kernel/edifyinstall.py
 endif

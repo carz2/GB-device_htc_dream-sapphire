@@ -37,7 +37,7 @@ PRODUCT_COPY_FILES += \
 
 #set ro.modversion
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=Carz-DietGingerbread-v0.070-debug
+    ro.modversion=Carz-DietGingerbread-v0.090-debug
 
 #Copy init.d scripts
 PRODUCT_COPY_FILES += \
@@ -70,10 +70,6 @@ PRODUCT_COPY_FILES += \
     vendor/carz/lib/libext2fs.so:system/lib/libext2fs.so \
     vendor/carz/lib/libext2_profile.so:system/lib/libext2_profile.so \
     vendor/carz/lib/libext2_uuid.so:system/lib/libext2_uuid.so
-
-#my buld prop
-PRODUCT_COPY_FILES += \
-    vendor/carz/build.prop:system/build.prop
 
 #copy in cam fix files
 PRODUCT_COPY_FILES += \
