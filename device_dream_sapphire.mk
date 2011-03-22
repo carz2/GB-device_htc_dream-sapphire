@@ -37,7 +37,7 @@ PRODUCT_COPY_FILES += \
 
 #set ro.modversion
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=Carz-DietGingerbread-v0.090-debug
+    ro.modversion=Carz-DietGingerbread-v0.21.03.2011
 
 #Copy init.d scripts
 PRODUCT_COPY_FILES += \
