@@ -32,12 +32,12 @@ PRODUCT_COPY_FILES += \
     vendor/carz/kernel/6355-modules.sqf:system/lib/modules/modules.sqf
 
 #Copy in many more apns
-PRODUCT_COPY_FILES += \
-    vendor/carz/etc/apns-conf.xml:system/lib/etc/apns-conf.xml
+PRODUCT_COPY_FILES := \
+    vendor/carz/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 #set ro.modversion
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=Carz-DietGingerbread-v0.21.03.2011
+    ro.modversion=Carz-DietGingerbread-v$(shell date +%m%d%Y)
 
 #Copy init.d scripts
 PRODUCT_COPY_FILES += \
@@ -45,7 +45,6 @@ PRODUCT_COPY_FILES += \
     vendor/carz/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
     vendor/carz/etc/init.d/04modules:system/etc/init.d/04modules \
     vendor/carz/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
-    vendor/carz/etc/init.d/06mountdl:system/etc/init.d/06mountdl \
     vendor/carz/etc/init.d/20userinit:system/etc/init.d/20userinit 
 
 #Copy audio profiles
@@ -73,9 +72,7 @@ PRODUCT_COPY_FILES += \
 
 #copy in cam fix files
 PRODUCT_COPY_FILES += \
-    vendor/carz/lib/libcamera.so:system/lib/libcamera.so \
-    vendor/carz/lib/libcamera_client.so:system/lib/libcamera_client.so \
-    vendor/carz/lib/libcameraservice.so:system/lib/libcameraservice.so
+    vendor/carz/lib/libcamera_client.so:system/lib/libcamera_client.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.media.dec.jpeg.memcap=10000000
