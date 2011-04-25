@@ -32,7 +32,7 @@ PRODUCT_COPY_FILES += \
     vendor/carz/kernel/6355-modules.sqf:system/lib/modules/modules.sqf
 
 #Copy in many more apns
-PRODUCT_COPY_FILES := \
+PRODUCT_COPY_FILES += \
     vendor/carz/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 #set ro.modversion
