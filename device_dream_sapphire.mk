@@ -49,8 +49,6 @@ PRODUCT_COPY_FILES += \
 
 #Copy audio profiles
 PRODUCT_COPY_FILES += \
-    device/htc/dream-sapphire/prebuilt/etc/.audio/AudioPara_TMUS_DREA.csv.gz:system/etc/.audio/AudioPara_TMUS_DREA.csv.gz \
-    device/htc/dream-sapphire/prebuilt/etc/.audio/AudioPara_TMUS_SAPP.csv.gz:system/etc/.audio/AudioPara_TMUS_SAPP.csv.gz \
     device/htc/dream-sapphire/prebuilt/etc/.audio/AudioPara_VODA_SAPP.csv.gz:system/etc/.audio/AudioPara_VODA_SAPP.csv.gz
 
 #Copy prebuilt files
@@ -100,7 +98,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=65537
+    ro.opengles.version=65536
 
 # Build ID for protected market apps
 PRODUCT_PROPERTY_OVERRIDES += \

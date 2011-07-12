@@ -107,7 +107,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=65537
+    ro.opengles.version=65536
 
 # Build ID for protected market apps
 PRODUCT_PROPERTY_OVERRIDES += \
