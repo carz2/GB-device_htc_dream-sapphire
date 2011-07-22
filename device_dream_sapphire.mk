@@ -54,7 +54,8 @@ PRODUCT_COPY_FILES += \
 
 #Copy prebuilt files
 PRODUCT_COPY_FILES += \
-    device/htc/dream-sapphire/prebuilt/bin/fix_permissions:system/bin/fix_permissions
+    device/htc/dream-sapphire/prebuilt/bin/fix_permissions:system/bin/fix_permissions \
+    device/htc/dream-sapphire/prebuilt/build.sapphire.prop:system/build.sapphire.prop
 
 #copy in apps2sd files
 PRODUCT_COPY_FILES += \
