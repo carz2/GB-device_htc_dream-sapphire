@@ -112,14 +112,6 @@ def make_boot_install(script,boot_img,input_zip,output_zip):
                          os.path.join(temp_root,"ebi1_BOOT")))
     
     common.ZipWriteStr(output_zip,"kernel/6355-boot.img",ebi1_boot_img.data)
-    
-    #copy in modules.sqf
-    fp=open(os.path.join(android_root,
-              "device","htc","dream-sapphire","kernel","6355-modules.sqf"),
-              "rb")
-    common.ZipWriteStr(output_zip,"kernel/6355-modules.sqf",fp.read())
-    fp.close()
-
 
     #add in checksys.sh
     generate_checksys(output_zip)
@@ -127,6 +119,7 @@ def make_boot_install(script,boot_img,input_zip,output_zip):
     #add eddify
     script.ShowProgress(0.2, 0)
     script.ShowProgress(0.2, 10)
+    script.RunBackup("restore")
     script.AppendExtra("""
 
 #check the system information of the system we are installing on
@@ -140,37 +133,6 @@ then
     #EBI1 kernel needed
     ui_print("Extracting EBI1 patch");
     package_extract_file("kernel/6355-boot.img","/tmp/boot.img");
-    package_extract_file("kernel/6355-modules.sqf",
-                         "/system/lib/modules/modules.sqf");
-else
-    #EBI0/2708 kernel needed
-    if file_getprop("/tmp/nfo.prop","smisize") == "64" &&
-       ( file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.3011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.3013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0013d" ) &&
-       ( file_getprop("/tmp/nfo.prop","baseband") == "2.22.27.08" ||
-         file_getprop("/tmp/nfo.prop","baseband") == "2.22.28.25" )
-    then
-        #2708 kernel (unless the user has the fake Crios SPL 1.33.2013 ENG)
-        # if the fake version they will fail to boot since its really
-        # 1.33.2005...
-        if file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2013"
-        then
-            ui_print("1.33.2013 detected, please ensure this is not Crios SPL 1.33.2013 ENG; as its really 1.33.2005");
-        endif;
-        ui_print("Extracting 2708+ patch");
-        package_extract_file("kernel/2708-boot.img","/tmp/boot.img");
-    else
-        #EBI0 kernel
-        ui_print("Extracting EBI0 patch");
-        package_extract_file("kernel/ebi0-boot.img","/tmp/boot.img");
-        package_extract_file("kernel/ebi0-modules.sqf",
-                             "/system/lib/modules/modules.sqf");
-    endif;
 endif;
 ## TODO ADD AUTO CUSTOM-MTD logic to /tmp/boot.img here ##
 ui_print("Write boot.img");
@@ -178,43 +140,6 @@ assert(write_raw_image("/tmp/boot.img","boot"));
 delete("/tmp/checksys.sh","/tmp/boot.img");
 
 #END INSTALL boot.img
-
-#Install "Audio hack"
-
-ui_print("AudioPara4.csv setup:");
-if file_getprop("/tmp/nfo.prop","sysboard") == "trout"
-then
-    #we have a HTC Dream
-    ui_print("system/etc/.audio/AudioPara_TMUS_DREA.csv.gz");
-    run_program("/sbin/sh","-c",
-           concat("busybox gzip -dc ",
-                  "/system/etc/.audio/AudioPara_TMUS_DREA.csv.gz > ",
-                  "/system/etc/AudioPara4.csv"));
-else
-    #We have one brand or other of HTC Sapphire
-    if file_getprop("/tmp/nfo.prop","smisize") == "64"
-    then
-        #this is a 32B board
-        ui_print("system/etc/.audio/AudioPara_TMUS_SAPP.csv.gz");
-        run_program("/sbin/sh","-c",
-               concat("busybox gzip -dc ",
-                      "/system/etc/.audio/AudioPara_TMUS_SAPP.csv.gz > ",
-                      "/system/etc/AudioPara4.csv"));
-    else
-        #this is a 32A baord
-        ui_print("system/etc/.audio/AudioPara_VODA_SAPP.csv.gz");
-        run_program("/sbin/sh","-c",
-               concat("busybox gzip -dc ",
-                      "/system/etc/.audio/AudioPara_VODA_SAPP.csv.gz > ",
-                      "/system/etc/AudioPara4.csv"));
-    endif;
-endif;
-#Ensure we sync.. I've seen files flashed at the end of a edify script like
-#this vanish
-run_program("/sbin/sh","-c","sleep 2; sync");
-
-#now update permissions on the new file and we are done
-set_perm(0, 0, 0644, "/system/etc/AudioPara4.csv");
 
 """)
     #clean up temporary files
