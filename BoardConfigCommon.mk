@@ -27,6 +27,8 @@ TARGET_BOARD_PLATFORM := msm7k
 BOARD_HAS_LIMITED_EGL := true
 TARGET_CPU_ABI := armeabi
 
+TARGET_NO_KERNEL := false
+
 TARGET_NO_BOOTLOADER := true
 
 # Wifi related defines

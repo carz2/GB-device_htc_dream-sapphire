@@ -28,9 +28,37 @@ PRODUCT_COPY_FILES := \
     frameworks/base/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 
-#copy default modules.
+
+# Kernel stuff
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := device/htc/dream-sapphire/prebuilt/kernel/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+#
+#Copy in prebuilt kernel modules
+#
+
+KERNEL_NAME := 2.6.34.4-carz
+
 PRODUCT_COPY_FILES += \
-    device/htc/dream-sapphire/kernel/6355-modules.sqf:system/lib/modules/modules.sqf
+    $(LOCAL_KERNEL):kernel \
+    device/htc/dream-sapphire/prebuilt/modules/Module.symvers:system/lib/modules/$(KERNEL_NAME)/kernel/Module.symvers \
+    device/htc/dream-sapphire/prebuilt/modules/modules.order:system/lib/modules/$(KERNEL_NAME)/kernel/modules.order \
+    device/htc/dream-sapphire/prebuilt/modules/modules.builtin:system/lib/modules/$(KERNEL_NAME)/kernel/modules.builtin \
+    device/htc/dream-sapphire/prebuilt/modules/wlan.ko:system/lib/modules/$(KERNEL_NAME)/kernel/drivers/net/wireless/tiwlan1251/wlan.ko \
+    device/htc/dream-sapphire/prebuilt/modules/ramzswap.ko:system/lib/modules/$(KERNEL_NAME)/kernel/drivers/staging/ramzswap/ramzswap.ko \
+    device/htc/dream-sapphire/prebuilt/modules/cifs.ko:system/lib/modules/$(KERNEL_NAME)/kernel/fs/cifs/cifs.ko \
+    device/htc/dream-sapphire/prebuilt/modules/fuse.ko:system/lib/modules/$(KERNEL_NAME)/kernel/fs/fuse/fuse.ko \
+    device/htc/dream-sapphire/prebuilt/modules/lockd.ko:system/lib/modules/$(KERNEL_NAME)/kernel/fs/lockd/lockd.ko \
+    device/htc/dream-sapphire/prebuilt/modules/nfs_acl.ko:system/lib/modules/$(KERNEL_NAME)/kernel/fs/nfs_common/nfs_acl.ko \
+    device/htc/dream-sapphire/prebuilt/modules/nfs.ko:system/lib/modules/$(KERNEL_NAME)/kernel/fs/nfs/nfs.ko \
+    device/htc/dream-sapphire/prebuilt/modules/mip6.ko:system/lib/modules/$(KERNEL_NAME)/kernel/net/ipv6/mip6.ko \
+    device/htc/dream-sapphire/prebuilt/modules/sunrpc.ko:system/lib/modules/$(KERNEL_NAME)/kernel/net/sunrpc/sunrpc.ko \
+    device/htc/dream-sapphire/prebuilt/modules/auth_rpcgss.ko:system/lib/modules/$(KERNEL_NAME)/kernel/net/sunrpc/auth_gss/auth_rpcgss.ko \
+    device/htc/dream-sapphire/prebuilt/modules/rpcsec_gss_krb5.ko:system/lib/modules/$(KERNEL_NAME)/kernel/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko \
+    device/htc/dream-sapphire/prebuilt/modules/wlan.ko:system/lib/modules/wlan.ko
 
 #Copy in many more apns
 PRODUCT_COPY_FILES += \

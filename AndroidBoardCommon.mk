@@ -15,9 +15,7 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel/6355-zImage
-BUILD_TARGET_EXTRA_OTABOOT_INSTALL_SCRIPT := \
-    $(LOCAL_PATH)/kernel/edifyinstall.py
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel/kernel
 endif
 
 file := $(INSTALLED_KERNEL_TARGET)
@@ -44,6 +42,5 @@ LOCAL_MODULE := vold.fstab
 LOCAL_MODULE_TAGS := debug optional
 LOCAL_SRC_FILES := $(LOCAL_MODULE)
 include $(BUILD_PREBUILT)
-
 
 -include vendor/htc/dream-sapphire/AndroidBoardCommonVendor.mk
