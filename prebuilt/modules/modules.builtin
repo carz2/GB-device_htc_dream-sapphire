@@ -72,6 +72,7 @@ kernel/drivers/leds/leds-gpio.ko
 kernel/drivers/leds/leds-cpld.ko
 kernel/drivers/leds/ledtrig-timer.ko
 kernel/drivers/leds/ledtrig-heartbeat.ko
+kernel/drivers/leds/ledtrig-sleep.ko
 kernel/drivers/md/dm-mod.ko
 kernel/drivers/md/dm-crypt.ko
 kernel/drivers/mmc/card/mmc_block.ko
