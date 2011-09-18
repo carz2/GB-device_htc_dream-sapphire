@@ -119,8 +119,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=65536
 
 # Build ID for protected market apps
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.fingerprint=google/soju/crespo:2.3.1/GRH78/85442:user/release-keys
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=GRH78 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=google/soju/crespo:2.3.1/GRH78/85442:user/release-keys PRIVATE_BUILD_DESC="soju-user 2.3.1 GRH78 85442 release-keys"
 
 # media configuration xml file
 PRODUCT_COPY_FILES += \
