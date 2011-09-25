@@ -95,7 +95,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libhtc_ril.so \
-    wifi.interface=tiwlan0
+    wifi.interface=tiwlan0 \
+    dalvik.vm.execution-mode=int:jit
 
 # Time between scans in seconds. Keep it high to minimize battery drain.
 # This only affects the case in which there are remembered access points,
